@@ -1,0 +1,161 @@
+/* ========================================
+   NUEVO REMITO
+   ======================================== */
+
+.remito-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.remito-header h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.remito-header p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.remito-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+/* Info del remito */
+.remito-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.remito-info-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1rem 1.25rem;
+}
+
+.remito-info-card label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.remito-info-card input,
+.remito-info-card select {
+    width: 100%;
+    padding: 0.5rem 0;
+    background: transparent;
+    color: var(--text-primary);
+    border: none;
+    border-bottom: 2px solid var(--border-color);
+    font-size: 0.95rem;
+    transition: border-color var(--transition-fast);
+}
+
+.remito-info-card input:focus,
+.remito-info-card select:focus {
+    border-bottom-color: var(--primary-500);
+}
+
+.remito-info-card input::placeholder {
+    color: var(--text-muted);
+}
+
+.remito-info-card select {
+    appearance: none;
+    cursor: pointer;
+}
+
+.remito-info-card select option {
+    background: var(--bg-card);
+}
+
+/* Resumen flotante */
+.remito-resumen {
+    position: sticky;
+    bottom: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.resumen-info {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.resumen-item {
+    text-align: center;
+}
+
+.resumen-item label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    display: block;
+}
+
+.resumen-item span {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-300);
+}
+
+.resumen-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+/* Filter bar */
+.filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.filter-chip {
+    padding: 0.4rem 0.85rem;
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+}
+
+.filter-chip:hover {
+    background: var(--bg-surface-hover);
+    color: var(--text-primary);
+}
+
+.filter-chip.active {
+    background: rgba(59, 103, 178, 0.2);
+    color: var(--primary-300);
+    border-color: var(--primary-500);
+}

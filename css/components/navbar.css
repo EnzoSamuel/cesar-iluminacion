@@ -1,0 +1,118 @@
+/* ========================================
+   NAVBAR
+   ======================================== */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: var(--sidebar-width);
+    height: var(--navbar-height);
+    background: var(--bg-navbar);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    z-index: var(--z-navbar);
+    transition: left var(--transition-normal);
+}
+
+.navbar.sidebar-collapsed {
+    left: var(--sidebar-collapsed);
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.navbar-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.navbar-subtitle {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.btn-menu-toggle {
+    display: none;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    color: var(--text-primary);
+    border-radius: var(--border-radius-sm);
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: background var(--transition-fast);
+}
+
+.btn-menu-toggle:hover {
+    background: var(--bg-surface-hover);
+}
+
+.btn-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-sm);
+    background: transparent;
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.btn-icon:hover {
+    background: var(--bg-surface-hover);
+    color: var(--text-primary);
+}
+
+.btn-icon .notification-dot {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    background: var(--danger);
+    border-radius: 50%;
+    border: 2px solid var(--bg-navbar);
+}
+
+.current-date {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding: 0.4rem 0.8rem;
+    background: var(--bg-surface);
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+@media (max-width: 1024px) {
+    .navbar {
+        left: 0;
+        padding: 0 1rem;
+    }
+
+    .btn-menu-toggle {
+        display: flex;
+    }
+
+    .current-date {
+        display: none;
+    }
+}

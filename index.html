@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    \<!-- Favicon de foco usando emoji (no necesita archivo) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+    <title>Cesar Iluminacion - Sistema de Gestión</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+    <!-- 🔥 FIREBASE SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components/navbar.css">
+    <link rel="stylesheet" href="css/components/sidebar.css">
+    <link rel="stylesheet" href="css/components/cards.css">
+    <link rel="stylesheet" href="css/components/tables.css">
+    <link rel="stylesheet" href="css/components/modal.css">
+    <link rel="stylesheet" href="css/components/toast.css">
+    <link rel="stylesheet" href="css/pages/dashboard.css">
+    <link rel="stylesheet" href="css/pages/remitos.css">
+    <link rel="stylesheet" href="css/pages/historial.css">
+</head>
+<body>
+
+    <!-- LOADING SCREEN -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <h2>Cesar Iluminación</h2>
+            <p>Conectando con la nube...</p>
+        </div>
+    </div>
+
+    <!-- APP CONTAINER -->
+    <div id="app" class="app-container">
+        <aside id="sidebar" class="sidebar"></aside>
+        <main class="main-wrapper">
+            <nav id="navbar" class="navbar"></nav>
+            <div id="page-content" class="page-content"></div>
+        </main>
+    </div>
+
+    <!-- MODAL & TOAST -->
+    <div id="modal-container"></div>
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- 🔥 FIREBASE CONFIG (PRIMERO) -->
+    <script src="js/services/FirebaseConfig.js"></script>
+
+    <!-- DATA -->
+    <script src="js/data/equipos.js"></script>
+
+    <!-- SERVICES -->
+    <script src="js/services/StorageService.js"></script>
+    <script src="js/services/PDFService.js"></script>
+    <script src="js/services/DataService.js"></script>
+
+    <!-- COMPONENTS -->
+    <script src="js/components/Toast.js"></script>
+    <script src="js/components/Modal.js"></script>
+    <script src="js/components/Navbar.js"></script>
+    <script src="js/components/Sidebar.js"></script>
+    <script src="js/components/EquipoTable.js"></script>
+
+    <!-- PAGES -->
+    <script src="js/pages/Dashboard.js"></script>
+    <script src="js/pages/NuevoRemito.js"></script>
+    <script src="js/pages/Historial.js"></script>
+    <script src="js/pages/DetalleRemito.js"></script>
+
+    <!-- ROUTER & APP -->
+    <script src="js/router.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,292 @@
+/* ========================================
+   TABLES
+   ======================================== */
+
+.table-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.table-header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.table-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    padding: 0 0.75rem;
+    transition: border-color var(--transition-fast);
+}
+
+.search-box:focus-within {
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px rgba(59, 103, 178, 0.15);
+}
+
+.search-box .material-icons-round {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+}
+
+.search-box input {
+    background: transparent;
+    color: var(--text-primary);
+    padding: 0.5rem;
+    width: 200px;
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+}
+
+/* Tabla propiamente dicha */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th {
+    background: var(--bg-surface);
+    padding: 0.875rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-secondary);
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+}
+
+.data-table td {
+    padding: 0.875rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    vertical-align: middle;
+}
+
+.data-table tbody tr {
+    transition: background var(--transition-fast);
+}
+
+.data-table tbody tr:hover {
+    background: var(--bg-surface-hover);
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-scrollable {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+/* Equipo row con cantidad */
+.equipo-nombre {
+    font-weight: 500;
+}
+
+.cantidad-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.cantidad-valor {
+    font-size: 1.1rem;
+    font-weight: 700;
+    min-width: 32px;
+    text-align: center;
+    color: var(--primary-300);
+}
+
+.cantidad-valor.has-items {
+    color: var(--accent-400);
+}
+
+.btn-cantidad {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: all var(--transition-fast);
+}
+
+.btn-cantidad.btn-minus {
+    background: rgba(220, 53, 69, 0.12);
+    color: var(--danger);
+}
+
+.btn-cantidad.btn-minus:hover:not(:disabled) {
+    background: rgba(220, 53, 69, 0.25);
+}
+
+.btn-cantidad.btn-plus {
+    background: rgba(40, 167, 69, 0.12);
+    color: var(--success);
+}
+
+.btn-cantidad.btn-plus:hover {
+    background: rgba(40, 167, 69, 0.25);
+}
+
+.btn-cantidad:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* Categoría header en tabla */
+.categoria-row td {
+    background: var(--bg-surface);
+    padding: 0.75rem 1.5rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--primary-300);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tabla-vacia {
+    text-align: center;
+    padding: 3rem !important;
+    color: var(--text-muted);
+}
+
+.tabla-vacia .material-icons-round {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 0.5rem;
+    opacity: 0.3;
+}
+
+/* ========================================
+   BOTONES GENERALES
+   ======================================== */
+
+.btn-primary {
+    padding: 0.65rem 1.25rem;
+    background: var(--primary-500);
+    color: white;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all var(--transition-fast);
+}
+
+.btn-primary:hover {
+    background: var(--primary-600);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-success {
+    padding: 0.65rem 1.25rem;
+    background: var(--success);
+    color: white;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all var(--transition-fast);
+}
+
+.btn-success:hover {
+    background: var(--success-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-danger {
+    padding: 0.65rem 1.25rem;
+    background: var(--danger);
+    color: white;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all var(--transition-fast);
+}
+
+.btn-danger:hover {
+    background: var(--danger-dark);
+    transform: translateY(-1px);
+}
+
+.btn-outline {
+    padding: 0.65rem 1.25rem;
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all var(--transition-fast);
+}
+
+.btn-outline:hover {
+    background: var(--bg-surface-hover);
+    color: var(--text-primary);
+    border-color: var(--border-color-hover);
+}
+
+.btn-ghost {
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    color: var(--text-secondary);
+    border-radius: var(--border-radius-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+}
+
+.btn-ghost:hover {
+    background: var(--bg-surface-hover);
+    color: var(--text-primary);
+}
+
+.btn-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+}

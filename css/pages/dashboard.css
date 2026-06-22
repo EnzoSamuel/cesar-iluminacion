@@ -1,0 +1,101 @@
+/* ========================================
+   DASHBOARD
+   ======================================== */
+
+.dashboard-welcome {
+    margin-bottom: 2rem;
+}
+
+.dashboard-welcome h1 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin-bottom: 0.25rem;
+    background: linear-gradient(135deg, var(--text-primary), var(--primary-300));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.dashboard-welcome p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* Quick Actions */
+.quick-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.quick-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    transition: all var(--transition-normal);
+}
+
+.quick-action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-500);
+}
+
+.quick-action-btn .action-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.quick-action-btn .action-icon.blue {
+    background: rgba(59, 103, 178, 0.15);
+    color: var(--primary-400);
+}
+
+.quick-action-btn .action-icon.green {
+    background: rgba(40, 167, 69, 0.15);
+    color: var(--success);
+}
+
+.quick-action-btn .action-icon.amber {
+    background: rgba(255, 193, 7, 0.15);
+    color: var(--accent-500);
+}
+
+.quick-action-btn .action-text h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.15rem;
+}
+
+.quick-action-btn .action-text p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Recent section */
+.dashboard-section {
+    margin-bottom: 2rem;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.section-header h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+}
