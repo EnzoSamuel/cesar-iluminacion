@@ -14,11 +14,6 @@ const EquipoTable = {
         const container = document.getElementById(containerId);
         if (!container) return;
 
-        // Guardamos la posición de scroll actual de la lista antes de
-        // reconstruir el HTML, para restaurarla después y que no "salte" arriba.
-        const scrollableAntes = container.querySelector('.table-scrollable');
-        const scrollTopPrevio = scrollableAntes ? scrollableAntes.scrollTop : 0;
-
         const {
             searchQuery = '',
             filterCategoria = 'all',
@@ -102,6 +97,8 @@ const EquipoTable = {
             catData.items.forEach(equipo => {
                 const cant = cantidades[equipo] || 0;
                 const hasItems = cant > 0;
+                const equipoAttr = equipo.replace(/"/g, '&quot;');
+                const equipoJs = equipo.replace(/'/g, "\\'");
 
                 html += `
                     <tr>
@@ -109,7 +106,7 @@ const EquipoTable = {
                             <span class="equipo-nombre">${equipo}</span>
                         </td>
                         <td>
-                            <span class="cantidad-valor ${hasItems ? 'has-items' : ''}">${cant}</span>
+                            <span class="cantidad-valor ${hasItems ? 'has-items' : ''}" data-equipo="${equipoAttr}">${cant}</span>
                         </td>
                 `;
 
@@ -117,13 +114,13 @@ const EquipoTable = {
                     html += `
                         <td>
                             <div class="cantidad-display">
-                                <button class="btn-cantidad btn-minus" 
-                                        onclick="NuevoRemito.cambiarCantidad('${equipo.replace(/'/g, "\\'")}', -1)"
+                                <button class="btn-cantidad btn-minus" data-equipo="${equipoAttr}"
+                                        onclick="NuevoRemito.cambiarCantidad('${equipoJs}', -1)"
                                         ${cant === 0 ? 'disabled' : ''}>
                                     −
                                 </button>
                                 <button class="btn-cantidad btn-plus" 
-                                        onclick="NuevoRemito.cambiarCantidad('${equipo.replace(/'/g, "\\'")}', 1)">
+                                        onclick="NuevoRemito.cambiarCantidad('${equipoJs}', 1)">
                                     +
                                 </button>
                             </div>
@@ -138,12 +135,25 @@ const EquipoTable = {
         html += '</tbody></table></div></div>';
 
         container.innerHTML = html;
+    },
 
-        // Restauramos el scroll para que, al sumar/restar cantidad,
-        // la lista se quede donde el usuario estaba.
-        const scrollableDespues = container.querySelector('.table-scrollable');
-        if (scrollableDespues) {
-            scrollableDespues.scrollTop = scrollTopPrevio;
+    /**
+     * Actualiza solo el número y el botón de UN equipo puntual,
+     * sin reconstruir el resto de la tabla. Así el scroll (sea de la
+     * página o de un contenedor interno) nunca se mueve.
+     */
+    actualizarFila(equipo, cantidad) {
+        const escaped = CSS.escape(equipo);
+
+        const valorEl = document.querySelector(`.cantidad-valor[data-equipo="${escaped}"]`);
+        if (valorEl) {
+            valorEl.textContent = cantidad;
+            valorEl.classList.toggle('has-items', cantidad > 0);
+        }
+
+        const minusBtn = document.querySelector(`.btn-minus[data-equipo="${escaped}"]`);
+        if (minusBtn) {
+            minusBtn.disabled = cantidad === 0;
         }
     }
 };
