@@ -14,6 +14,11 @@ const EquipoTable = {
         const container = document.getElementById(containerId);
         if (!container) return;
 
+        // Guardamos la posición de scroll actual de la lista antes de
+        // reconstruir el HTML, para restaurarla después y que no "salte" arriba.
+        const scrollableAntes = container.querySelector('.table-scrollable');
+        const scrollTopPrevio = scrollableAntes ? scrollableAntes.scrollTop : 0;
+
         const {
             searchQuery = '',
             filterCategoria = 'all',
@@ -133,5 +138,12 @@ const EquipoTable = {
         html += '</tbody></table></div></div>';
 
         container.innerHTML = html;
+
+        // Restauramos el scroll para que, al sumar/restar cantidad,
+        // la lista se quede donde el usuario estaba.
+        const scrollableDespues = container.querySelector('.table-scrollable');
+        if (scrollableDespues) {
+            scrollableDespues.scrollTop = scrollTopPrevio;
+        }
     }
 };
