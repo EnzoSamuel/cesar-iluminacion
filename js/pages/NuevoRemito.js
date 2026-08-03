@@ -224,7 +224,17 @@ const NuevoRemito = {
         const newVal = (this.cantidades[equipo] || 0) + delta;
         if (newVal < 0) return;
         this.cantidades[equipo] = newVal;
-        this.renderTabla();
+
+        if (this.showOnlySelected) {
+            // Con este filtro activo el ítem puede aparecer/desaparecer
+            // de la lista, así que hay que reconstruir la tabla entera.
+            this.renderTabla();
+        } else {
+            // Actualización puntual: no se toca el resto de la tabla,
+            // por lo tanto el scroll no se mueve ni "salta" al principio.
+            EquipoTable.actualizarFila(equipo, this.cantidades[equipo]);
+        }
+
         this.renderResumen();
     },
 
