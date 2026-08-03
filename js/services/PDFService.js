@@ -157,7 +157,7 @@ const PDFService = {
                     if (!categoriaAgregada) {
                         filas.push([{
                             content: categoria,
-                            colSpan: 3,
+                            colSpan: 2,
                             styles: {
                                 fillColor: [26, 39, 68],
                                 textColor: [255, 255, 255],
@@ -171,7 +171,6 @@ const PDFService = {
                     }
                     itemCount++;
                     filas.push([
-                        itemCount.toString(),
                         equipo,
                         trabajo.equipos[equipo].toString()
                     ]);
@@ -180,7 +179,7 @@ const PDFService = {
         }
 
         doc.autoTable({
-            head: [['#', 'Equipo', 'Cant.']],
+            head: [['Equipo', 'Cant.']],
             body: filas,
             startY: yPos,
             theme: 'grid',
@@ -200,9 +199,8 @@ const PDFService = {
                 overflow: 'linebreak' // ← Permite múltiples líneas en celdas
             },
             columnStyles: {
-                0: { cellWidth: 15, halign: 'center', fontStyle: 'bold' },
-                1: { cellWidth: 145 },
-                2: { cellWidth: 20, halign: 'center', fontStyle: 'bold' }
+                0: { cellWidth: 160, halign: 'left' },
+                1: { cellWidth: 20, halign: 'center', fontStyle: 'bold' }
             },
             alternateRowStyles: {
                 fillColor: [248, 249, 252]
