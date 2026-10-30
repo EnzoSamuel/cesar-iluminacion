@@ -12,6 +12,11 @@
 
         // Inicializar componentes
         Toast.init();
+        FondoEpico.init();
+
+        // Inventario (equipos propios, ocultos, categorías). Si falla, la app
+        // sigue con el catálogo base.
+        try { await InventarioService.init(); } catch (e) { console.warn(e); }
 
         // Inicializar sidebar (carga stats de Firebase)
         await Sidebar.init();

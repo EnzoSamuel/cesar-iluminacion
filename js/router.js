@@ -13,6 +13,7 @@ const Router = {
     pages: {
         'dashboard': () => Dashboard.render(),
         'nuevo-remito': (param) => NuevoRemito.render(param),
+        'inventario': () => Inventario.render(),
         'historial': () => Historial.render(),
         'detalle-remito': (param) => DetalleRemito.render(param)
     },

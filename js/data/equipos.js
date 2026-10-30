@@ -1,16 +1,25 @@
 /**
  * ========================================
- * BASE DE DATOS DE EQUIPOS
+ * BASE DE DATOS DE EQUIPOS (catálogo base)
  * ========================================
- * Todos los equipos organizados por categoría
+ * IMPORTANTE: los remitos guardados identifican cada equipo por su NOMBRE
+ * EXACTO. Por eso los nombres que ya existían NO se tocan; solo se agregan
+ * nuevos. Mover un equipo de categoría es seguro (la categoría no se guarda
+ * en los remitos).
+ *
+ * EQUIPOS_DB_BASE  -> catálogo de fábrica (este archivo)
+ * EQUIPOS_DB       -> catálogo "vivo" que arma InventarioService
+ *                     (base + equipos propios - ocultos). Es el que usa la app.
  */
 
-const EQUIPOS_DB = {
+const EQUIPOS_DB_BASE = {
     'ILUMINACIÓN': {
+        label: 'Iluminación',
         icon: 'lightbulb',
         emoji: '💡',
         color: '#ffc107',
         items: [
+            // --- Lo que ya existía ---
             'HMI Fresnel 1.2 kW con balasto y manguera',
             'HMI Fresnel 2.5 kW con balasto y manguera',
             'HMI Fresnel 4 kW con balasto y manguera',
@@ -44,38 +53,119 @@ const EQUIPOS_DB = {
             'Móvil Beam 230 PLS',
             'Móvil tipo 3 en 1',
             'Barra con movimiento Avenger D520',
-            'Marco 1×1 m',
-            'Marco de Gridcloth',
-            'Bandera de tela negra 1×1 m',
-            'Pantalla plateada 1×1 m',
-            'Gelatinas y difusiones'
+
+            // --- Nanlite ---
+            'Nanlite Forza 500c',
+            'Nanlite Forza 500B (Bicolor)',
+            'Nanlite Forza 300B (Bicolor)',
+            'Nanlite Forza 150',
+            'Nanlite Forza 60',
+            'Nanlite Forza 60B (Bicolor)',
+            'Nanlite Forza 720',
+            'Nanlite Forza 720B (Bicolor)',
+            'Nanlite PavoTube II 6C (30 cm)',
+            'Nanlite PavoTube II 15C (60 cm)',
+            'Nanlite PavoTube II 30C (1.2 m)',
+            'Nanlite Evoke 900C',
+            'Nanlite Evoke 1200B (Bicolor)',
+            'Nanlite PavoSlim 60C',
+            'Nanlite PavoSlim 120C',
+            'Nanlite Softbox con grilla para Forza',
+            'Nanlite Proyector de lentes para Forza',
+
+            // --- Aputure / Amaran ---
+            'Aputure LS 600d Pro',
+            'Aputure LS 600c Pro (RGBWW)',
+            'Aputure LS 300x (Bicolor)',
+            'Aputure LS 300d II',
+            'Aputure LS 1200d Pro',
+            'Aputure LS C120d II',
+            'Aputure LS C300d II',
+            'Aputure Nova P300c (Panel RGBWW)',
+            'Aputure Nova P600c (Panel RGBWW)',
+            'Aputure Infinibar PB12',
+            'Amaran 100d',
+            'Amaran 100x (Bicolor)',
+            'Amaran 200d',
+            'Amaran 200x (Bicolor)',
+            'Amaran 300c (RGBWW)',
+            'Amaran 150c (RGBWW)',
+            'Amaran F22c (Panel flexible)',
+            'Amaran Tube T2c',
+            'Amaran Tube T4c',
+            'Aputure Light Dome II',
+            'Aputure Light Dome 150',
+            'Aputure Lantern 90',
+            'Aputure Spotlight Mount con lente',
+            'Aputure Fresnel 2X',
+            'Aputure Hyper Reflector',
+            'Aputure Sidus Link (controlador / bridge)',
+            'Sidus Link Pro (control por app)',
+            'Aputure Sidus Link Hub',
+
+            // --- Godox ---
+            'Godox SL60W',
+            'Godox SL150 II',
+            'Godox VL150',
+            'Godox VL300',
+            'Godox Knowled MG1200Bi',
+            'Godox Knowled MG800Bi',
+            'Godox TL60 (tubo RGB)',
+            'Godox TL120 (tubo RGB)',
+            'Godox LC500R (varita LED RGB)',
+            'Godox AD600 Pro (flash de estudio)',
+            'Godox AD400 Pro (flash de estudio)',
+            'Godox AD200 Pro (flash portátil)',
+
+            // --- HMI / Tungsteno / clásicos ---
+            'HMI Fresnel 575 W con balasto',
+            'HMI Fresnel 800 W con balasto',
+            'HMI Fresnel 6 kW con balasto y manguera',
+            'HMI Fresnel 12 kW con balasto y manguera',
+            'HMI PAR 1.2 kW con balasto y manguera',
+            'HMI PAR 2.5 kW con balasto y manguera',
+            'HMI PAR 6 kW con balasto y manguera',
+            'Fresnel Tungsteno 650 W (Tweenie)',
+            'Fresnel Tungsteno 1 kW (Baby)',
+            'Fresnel Tungsteno 2 kW (Junior)',
+            'Fresnel Tungsteno 5 kW (Senior)',
+            'Fresnel Tungsteno 10 kW (Tener)',
+            'Redhead 800 W (Open Face)',
+            'Blonde 2 kW (Open Face)',
+            'Ellipsoidal 750 W (Source Four)',
+            'PAR 64 Tungsteno',
+            'PAR 56 Tungsteno',
+            'Kino Flo 4 pies de 4 tubos',
+            'Kino Flo 2 pies de 2 tubos',
+            'Kino Flo Diva-Lite',
+            'Dedolight con accesorios',
+            'Linterna china (Chinese Lantern) con zócalo',
+            'Bola china grande con zócalo',
+
+            // --- Paneles LED y otros ---
+            'SkyPanel S30-C (ARRI)',
+            'SkyPanel S120-C (ARRI)',
+            'ARRI L7-C',
+            'Litepanels Astra 1×1 Bicolor',
+            'Litepanels Gemini 2×1 RGBWW',
+            'Panel LED 1×1 Bicolor',
+            'Panel LED RGB 60 cm',
+            'Panel LED de cámara (on-camera)',
+            'Wash LED móvil 36×10 W',
+            'Strobe LED',
+            'Barra LED pixel',
+            'Cabeza móvil Spot 250',
+            'Láser de eventos'
         ]
     },
 
-    'SOPORTES Y ESTRUCTURAS': {
-        icon: 'videocam',
-        emoji: '🎥',
-        color: '#17a2b8',
-        items: [
-            'Trípode Avenger 1045CS (A100) combo',
-            'Trípode Avenger 1035CS (A110) combo',
-            'Trípode Avenger 1020CS (A120) combo',
-            'Trípode Manfrotto (varios)',
-            'Trípode Manfrotto 087NWB con malacate',
-            'Trípode Manfrotto 2 tramos',
-            'Trípode Manfrotto 3 tramos',
-            'Ascensor extensible 3 a 5 m',
-            'Ascensor',
-            'Rack porta pantalla',
-            'Pantalla refractaria'
-        ]
-    },
-
-    'GRIPERÍA Y SUJECIÓN': {
+    'GRIPERÍA': {
+        label: 'Gripería',
         icon: 'build',
         emoji: '🔩',
         color: '#6f42c1',
         items: [
+            // --- Lo que ya existía ---
             'Movimiento Avenger D200',
             'Movimiento Avenger D400',
             'Brazo mágico',
@@ -90,15 +180,131 @@ const EQUIPOS_DB = {
             'Grampa C con perno',
             'Morza C150',
             'Linga de seguridad',
-            'Kit de plaquetas x 10'
+            'Kit de plaquetas x 10',
+            'Marco 1×1 m',
+            'Marco de Gridcloth',
+            'Bandera de tela negra 1×1 m',
+            'Pantalla plateada 1×1 m',
+            'Gelatinas y difusiones',
+
+            // --- Sujeción ---
+            'Pelícano',
+            'Pelícano con perno',
+            'Cocodrilo',
+            'Cocodrilo grande',
+            'Maffer',
+            'Maffer con rótula',
+            'C-Stand 40" con brazo y cabeza',
+            'C-Stand 20" (Midi)',
+            'C-Stand con base Turtle',
+            'Gobo head (cabeza de gobo)',
+            'Brazo de gobo 40"',
+            'Brazo extensor de gripería',
+            'Rótula',
+            'Rótula de 5/8"',
+            'Rótula Baby (5/8")',
+            'Prensa',
+            'Prensa tipo C',
+            'Super Clamp (Prensa Manfrotto)',
+            'Clamp',
+            'Clamp para tubo',
+            'Clamp de mesa',
+            'Pinza de pared (Wall plate)',
+            'Baby pin',
+            'Junior pin',
+            'Perno 5/8"',
+            'Perno 1-1/8" (Junior)',
+            'Cheese plate',
+            'Pinza de ropa C47',
+            'Autopole (barra expansiva)',
+            'Speed rail 1 m',
+            'Speed rail 2 m',
+            'Cadena con gancho',
+            'Aro de montaje de pantalla',
+
+            // --- Controladores de luz ---
+            'Bandera 18×24"',
+            'Bandera 24×36"',
+            'Bandera 48×48"',
+            'Bandera negra 2×2 m',
+            'Bandera con marco (Floppy)',
+            'Cutter (Bandera angosta)',
+            'Tamiz simple 18×24" (Net)',
+            'Tamiz doble 18×24" (Net)',
+            'Tamiz 24×36" (Net)',
+            'Tamiz 48×48" (Net)',
+            'Seda 4×4 pies (Silk)',
+            'Seda 6×6 pies (Silk)',
+            'Marco de difusión 8×8 pies',
+            'Rebote 4×4 pies (Poli)',
+            'Rebote 8×8 pies (Poli)',
+            'Rebote plateado / dorado (Reflector 5 en 1)',
+            'Muselina negra (Muslin)',
+            'Black wrap (aluminio negro)',
+            'Tela Grid Cloth',
+            'Cinta gaffer negra',
+            'Cinta gaffer blanca',
+            'Cinta doble faz',
+            'Bolsa de arena 10 kg (Sandbag)',
+            'Contrapeso',
+            'Apple Box (caja de manzana)',
+            'Pancake',
+            'Cuñas de madera',
+            'Cobertor de muebles (Furniture pad)'
         ]
     },
 
-    'ELECTRICIDAD Y CABLES': {
+    'SOPORTES': {
+        label: 'Soportes',
+        icon: 'videocam',
+        emoji: '🎥',
+        color: '#17a2b8',
+        items: [
+            // --- Lo que ya existía ---
+            'Trípode Avenger 1045CS (A100) combo',
+            'Trípode Avenger 1035CS (A110) combo',
+            'Trípode Avenger 1020CS (A120) combo',
+            'Trípode Manfrotto (varios)',
+            'Trípode Manfrotto 087NWB con malacate',
+            'Trípode Manfrotto 2 tramos',
+            'Trípode Manfrotto 3 tramos',
+            'Ascensor extensible 3 a 5 m',
+            'Ascensor',
+            'Rack porta pantalla',
+            'Pantalla refractaria',
+
+            // --- Nuevos ---
+            'Trípode de carga pesada Baby Roller',
+            'Trípode de carga pesada Junior Roller',
+            'Trípode combo Baby 3 etapas',
+            'Trípode combo Junior 3 etapas',
+            'Trípode Low Boy',
+            'Trípode Hi-Hi Roller',
+            'Trípode de luz liviano',
+            'Trípode Manfrotto 1004BAC (Alu)',
+            'Jirafa de luz (Boom)',
+            'Jirafa de sonido (Boom Pole)',
+            'Mega Boom',
+            'Base Turtle',
+            'Torre de iluminación telescópica',
+            'Truss 1 m',
+            'Truss 2 m',
+            'Truss 3 m',
+            'Torre de truss con base',
+            'Motor de truss (Chain hoist)',
+            'Atril de bandera',
+            'Soporte de pared para luz',
+            'Soporte de techo (Ceiling hanger)'
+        ]
+    },
+
+    'ELECTRICIDAD': {
+        label: 'Electricidad',
         icon: 'bolt',
         emoji: '⚡',
         color: '#fd7e14',
         items: [
+            // --- Lo que ya existía ---
             'Balasto HMI 4/2.5 kW',
             'Tablero trifásico',
             'Tablero derivador trifásico x 12 bocas',
@@ -130,15 +336,51 @@ const EQUIPOS_DB = {
             'Alargue 30 A x 25 m',
             'Alargue 10 A x 10 m',
             'Valija de alargues y zapatillas',
-            'Valija de chicotes y herramientas'
+            'Valija de chicotes y herramientas',
+
+            // --- Nuevos ---
+            'Zapatilla 6 tomas con térmica',
+            'Zapatilla 8 tomas con térmica',
+            'Zapatilla 4 tomas',
+            'Prolongador 10 A x 5 m',
+            'Prolongador 10 A x 10 m',
+            'Prolongador 10 A x 20 m',
+            'Prolongador reforzado 3×2.5 mm x 25 m',
+            'Prolongador de carrete (enrollable)',
+            'Alargue 30 A x 50 m',
+            'Tablero monofásico 32 A',
+            'Tablero 63 A con térmicas',
+            'Tablero de obra con disyuntor',
+            'Disyuntor diferencial portátil',
+            'Toma industrial CEE 16 A',
+            'Adaptador Steck a Schuko',
+            'Ficha Steck macho',
+            'Ficha Steck hembra',
+            'Derivador "T" 30 A',
+            'Triple / Ladrón',
+            'Estabilizador de tensión',
+            'Dimmer 2.4 kW',
+            'Rack de dimmers 6 canales',
+            'Consola DMX 512',
+            'Cable DMX x 20 m',
+            'Cable de potencia 4 mm x 15 m',
+            'Generador 5 kVA',
+            'Generador insonorizado 20 kVA',
+            'Multímetro / Pinza amperométrica',
+            'Cable de red CAT6 x 20 m'
         ]
     },
 
-    'TRANSPORTE Y LOGÍSTICA': {
-        icon: 'local_shipping',
-        emoji: '🚛',
-        color: '#28a745',
+    'VARIOS': {
+        label: 'Varios',
+        icon: 'handyman',
+        emoji: '🧰',
+        color: '#dc3545',
         items: [
+            // --- Lo que ya existía (incluye Transporte y Logística) ---
+            'Handys',
+            'Tres medidas',
+            'Consola de luces',
             'Carro de transporte para trípodes combo',
             'Carreta de transporte',
             'Zorra de transporte',
@@ -148,20 +390,75 @@ const EQUIPOS_DB = {
             'Bacha grande negra',
             'Bacha mediana',
             'Cajón chico',
-            'Bolsa de arena'
-        ]
-    },
+            'Bolsa de arena',
 
-    'VARIOS': {
-        icon: 'handyman',
-        emoji: '🧰',
-        color: '#dc3545',
-        items: [
-            'Handys',
-            'Tres medidas',
-            'Consola de luces'
+            // --- Nuevos ---
+            'Máquina de humo',
+            'Máquina de niebla (Hazer)',
+            'Ventilador industrial',
+            'Fotómetro (medidor de luz)',
+            'Termocolorímetro',
+            'Carro de utilería',
+            'Mesa plegable',
+            'Toldo / Carpa 3×3 m',
+            'Botiquín de primeros auxilios',
+            'Extintor',
+            'Guantes de trabajo',
+            'Linterna frontal'
         ]
     }
+};
+
+/**
+ * Jerga de rodaje y sinónimos para el buscador.
+ * Clave: texto que aparece en el nombre del equipo. Si el nombre contiene la
+ * clave, se suman estas palabras a la búsqueda (sin acentos, en minúsculas).
+ */
+const EQUIPOS_JERGA = {
+    'Pelícano': 'pelican grampa agarre',
+    'Cocodrilo': 'alligator caiman pinza',
+    'Maffer': 'mafer matthews clamp perno',
+    'C-Stand': 'cstand c stand century stand pie torre',
+    'Gobo head': 'gobohead cabeza cabezal gobo grip head',
+    'Rótula': 'baby pin cabezal junta',
+    'Prensa': 'clamp super clamp sargento apriete',
+    'Clamp': 'prensa grampa abrazadera',
+    'Bandera': 'flag negro sombra flagg',
+    'Tamiz': 'net scrim malla difusor',
+    'Seda': 'silk difusion tela',
+    'Cutter': 'cukaloris bandera angosta',
+    'Apple Box': 'caja manzana cajon plataforma',
+    'Sandbag': 'bolsa arena peso lastre',
+    'Forza': 'nanlite led bicolor',
+    'PavoTube': 'tubo nanlite rgb',
+    'Evoke': 'nanlite led',
+    'Aputure': 'led',
+    'Sidus': 'sidus link app control aputure amaran',
+    'HMI': 'lampara descarga balasto',
+    'Fresnel': 'foco lente',
+    'Kino Flo': 'kinoflo kino fluorescente',
+    'Zapatilla': 'multitoma toma enchufe regleta',
+    'Prolongador': 'alargue extension cable',
+    'Alargue': 'prolongador extension cable',
+    'Tablero': 'distribucion termicas llave',
+    'Chicote': 'adaptador cable cola',
+    'Trípode': 'tripode stand pie soporte',
+    'Low Boy': 'lowboy piso bajo',
+    'Roller': 'rueda ruedas pesado',
+    'Truss': 'estructura cercha tramo',
+    'Generador': 'grupo electrogeno',
+    'Handys': 'handy walkie radio intercom',
+    'humo': 'smoke fog niebla',
+    'Hazer': 'haze humo niebla',
+    'Gaffer': 'cinta tela adhesiva',
+    'Wash': 'cabeza movil',
+    'Beam': 'movil cabeza',
+    'Furniture': 'manta mueble proteccion',
+    'Speed rail': 'cano tubo riel',
+    'Autopole': 'barra expansiva polecat',
+    'Cheese plate': 'placa queso plato',
+    'Muslin': 'muselina tela fondo',
+    'Black wrap': 'aluminio negro papel foil'
 };
 
 // Tipos de evento para categorizar trabajos
@@ -177,3 +474,7 @@ const TIPOS_EVENTO = [
     'Evento Social',
     'Otro'
 ];
+
+// Catálogo vivo. InventarioService lo reconstruye (base + propios - ocultos).
+// Arranca igual al base para que todo funcione aunque el servicio no cargue.
+let EQUIPOS_DB = EQUIPOS_DB_BASE;

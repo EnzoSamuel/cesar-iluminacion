@@ -102,8 +102,10 @@ const DetalleRemito = {
 
         let html = '<table class="data-table"><thead><tr><th style="text-align:left">Equipo</th><th style="width:100px">Cantidad</th></tr></thead><tbody>';
 
-        for (const cat in EQUIPOS_DB) {
-            const catData = EQUIPOS_DB[cat];
+        const grupos = InventarioService.agrupar(trabajo.equipos);
+
+        for (const cat in grupos) {
+            const catData = grupos[cat];
             let catHasItems = false;
             const itemsHtml = [];
 
@@ -113,7 +115,7 @@ const DetalleRemito = {
                     itemsHtml.push(`
                         <tr>
                             <td style="text-align:left; padding-left:1.5rem">
-                                <span class="equipo-nombre">${equipo}</span>
+                                <span class="equipo-nombre">${InventarioService.escapar(equipo)}</span>
                             </td>
                             <td>
                                 <span class="cantidad-valor has-items">${trabajo.equipos[equipo]}</span>

@@ -53,6 +53,12 @@ const Sidebar = {
                     <span class="nav-item-text">Nuevo Remito</span>
                 </div>
 
+                <div class="nav-item ${Router.currentPage === 'inventario' ? 'active' : ''}"
+                     onclick="Router.navigate('inventario')">
+                    <span class="material-icons-round">inventory_2</span>
+                    <span class="nav-item-text">Inventario General</span>
+                </div>
+
                 <div class="sidebar-section-title">Registros</div>
 
                 <div class="nav-item ${Router.currentPage === 'historial' ? 'active' : ''}"

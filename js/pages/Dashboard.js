@@ -97,7 +97,7 @@ const Dashboard = {
                             </div>
                         </button>
 
-                        <button class="quick-action-btn" onclick="Dashboard.verInventario()">
+                        <button class="quick-action-btn" onclick="Router.navigate('inventario')">
                             <div class="action-icon amber">
                                 <span class="material-icons-round">inventory</span>
                             </div>

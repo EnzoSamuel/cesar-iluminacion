@@ -1,0 +1,58 @@
+/* ========================================
+   INVENTARIO GENERAL
+   ======================================== */
+
+.inv-nuevo {
+    background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--border-radius);
+    padding: 1rem 1.1rem; margin-bottom: 1.25rem;
+}
+.inv-nuevo h3 { display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; margin-bottom: 0.75rem; }
+.inv-nuevo h3 .material-icons-round { color: var(--success); }
+.inv-nuevo-form { display: grid; grid-template-columns: minmax(0, 1fr) 190px auto; gap: 0.6rem; }
+.inv-nuevo-form input, .inv-nuevo-form select, .inv-modal-input, .inv-catsel {
+    background: var(--bg-input); color: var(--text-primary); border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm); padding: 0.7rem 0.8rem; font-size: 0.95rem; width: 100%;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.inv-nuevo-form input:focus, .inv-nuevo-form select:focus, .inv-modal-input:focus, .inv-catsel:focus {
+    border-color: var(--primary-500); box-shadow: 0 0 0 3px rgba(59, 103, 178, 0.18);
+}
+.inv-nuevo-form select option, .inv-catsel option { background: var(--bg-card); }
+.inv-nuevo-form button { justify-content: center; min-height: 44px; }
+
+.inv-tools { margin-bottom: 0.25rem; }
+.inv-tools .rm-search { margin-bottom: 0.75rem; }
+.inv-resumen { color: var(--text-secondary); font-size: 0.85rem; margin: 0.25rem 0.25rem 1rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; align-items: baseline; }
+.inv-resumen b { color: var(--text-primary); }
+.inv-nota { color: var(--text-muted); font-size: 0.78rem; }
+
+.inv-rows { display: grid; gap: 0.45rem; }
+.inv-row {
+    display: grid; grid-template-columns: minmax(0, 1fr) 170px auto; align-items: center; gap: 0.6rem;
+    background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--border-radius-sm);
+    padding: 0.5rem 0.6rem 0.5rem 0.9rem; transition: background var(--transition-fast), opacity 0.2s ease, transform 0.2s ease;
+    animation: rmPop 0.25s ease;
+}
+.inv-row:hover { background: var(--bg-card-hover); }
+.inv-row.oculto { opacity: 0.55; }
+.inv-row.leaving { opacity: 0; transform: translateX(16px); }
+.inv-row.flash { animation: rmFlashNew 1.6s ease; }
+.inv-nombre { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; font-size: 0.9rem; font-weight: 500; word-break: break-word; }
+.inv-catsel { padding: 0.45rem 0.6rem; font-size: 0.82rem; }
+.inv-acciones { display: flex; gap: 0.2rem; min-width: 40px; justify-content: flex-end; }
+.inv-ic {
+    width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    color: var(--text-secondary); transition: all var(--transition-fast);
+}
+.inv-ic .material-icons-round { font-size: 1.2rem; }
+.inv-ic:hover { background: var(--bg-surface-hover); color: var(--text-primary); }
+.inv-ic.peligro:hover { background: rgba(220, 53, 69, 0.18); color: var(--danger); }
+
+@media (max-width: 700px) {
+    .inv-nuevo-form { grid-template-columns: 1fr; }
+    .inv-row { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "nom acc" "cat cat"; row-gap: 0.4rem; }
+    .inv-nombre { grid-area: nom; }
+    .inv-acciones { grid-area: acc; }
+    .inv-catsel { grid-area: cat; padding: 0.6rem; }
+}
+@media (pointer: coarse) { .inv-ic { width: 44px; height: 44px; } }

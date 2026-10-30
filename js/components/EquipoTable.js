@@ -1,159 +1,108 @@
 /**
  * ========================================
- * EQUIPO TABLE COMPONENT
+ * EQUIPO TABLE COMPONENT (tarjetas de equipos)
  * ========================================
- * Renderiza las tablas de equipos con controles de cantidad
+ * Dibuja el catálogo como tarjetas agrupadas por categoría, con controles de
+ * cantidad grandes (cómodos con el dedo). No tiene lógica de negocio: los
+ * clicks los resuelve NuevoRemito por delegación de eventos (data-act).
  */
 
 const EquipoTable = {
 
-    /**
-     * Renderizar tabla completa con todas las categorías
-     */
-    render(containerId, cantidades, opciones = {}) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
+    esc(t) { return InventarioService.escapar(t); },
 
-        const {
-            searchQuery = '',
-            filterCategoria = 'all',
-            showOnlySelected = false,
-            readOnly = false
-        } = opciones;
-
-        let categorias = EQUIPOS_DB;
-
-        // Si hay búsqueda
-        if (searchQuery.trim()) {
-            categorias = DataService.buscarEquipos(searchQuery) || {};
+    /** Controles de cantidad: botón "Agregar" si es 0, o − [n] + si ya hay. */
+    controlesHtml(cant) {
+        if (cant > 0) {
+            return `
+                <div class="eq-step">
+                    <button class="eq-btn eq-minus" data-act="dec" aria-label="Quitar uno">−</button>
+                    <input class="eq-qty" data-act="set" type="number" inputmode="numeric" min="0" max="999"
+                           value="${cant}" aria-label="Cantidad" />
+                    <button class="eq-btn eq-plus" data-act="inc" aria-label="Sumar uno">+</button>
+                </div>`;
         }
+        return `<button class="eq-add" data-act="inc"><span class="material-icons-round">add</span>Agregar</button>`;
+    },
 
-        // Si filtro por categoría
-        if (filterCategoria !== 'all') {
-            const filtered = {};
-            if (categorias[filterCategoria]) {
-                filtered[filterCategoria] = categorias[filterCategoria];
-            }
-            categorias = filtered;
-        }
+    /** Selector para cambiar un equipo de categoría. */
+    moverHtml(actual) {
+        return Object.keys(EQUIPOS_DB_BASE).map(cat => `
+            <button class="eq-move-chip ${cat === actual ? 'current' : ''}" data-act="mover" data-cat="${this.esc(cat)}">
+                ${EQUIPOS_DB_BASE[cat].emoji} ${this.esc(EQUIPOS_DB_BASE[cat].label)}
+            </button>`).join('');
+    },
 
-        // Si solo mostrar seleccionados
-        if (showOnlySelected) {
-            const filtered = {};
-            for (const cat in categorias) {
-                const items = categorias[cat].items.filter(eq => cantidades[eq] > 0);
-                if (items.length > 0) {
-                    filtered[cat] = { ...categorias[cat], items };
-                }
-            }
-            categorias = filtered;
-        }
-
-        // Verificar si hay resultados
-        if (Object.keys(categorias).length === 0) {
-            container.innerHTML = `
-                <div class="table-container">
-                    <table class="data-table">
-                        <tbody>
-                            <tr>
-                                <td class="tabla-vacia">
-                                    <span class="material-icons-round">search_off</span>
-                                    ${searchQuery ? 'No se encontraron equipos' : showOnlySelected ? 'No hay equipos seleccionados' : 'No hay equipos para mostrar'}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+    tarjetaHtml(nombre, indice, cat, cant) {
+        const meta = EQUIPOS_DB_BASE[cat] || {};
+        return `
+            <div class="eq-card ${cant > 0 ? 'selected' : ''}" id="eq-${indice}" data-i="${indice}" style="--cat-color:${meta.color || '#8899b4'}">
+                <div class="eq-main">
+                    <div class="eq-info">
+                        <span class="eq-name">${this.esc(nombre)}</span>
+                        ${InventarioService.esPropio(nombre) ? '<span class="eq-tag">Propio</span>' : ''}
+                    </div>
+                    <div class="eq-ctrl">${this.controlesHtml(cant)}</div>
+                    <button class="eq-more" data-act="menu" aria-label="Cambiar de categoría" title="Cambiar de categoría">
+                        <span class="material-icons-round">swap_horiz</span>
+                    </button>
                 </div>
-            `;
-            return;
-        }
-
-        let html = '<div class="table-container"><div class="table-scrollable"><table class="data-table">';
-
-        html += `
-            <thead>
-                <tr>
-                    <th style="text-align:left; width: 55%">Equipo</th>
-                    <th style="width: 15%">Cantidad</th>
-                    ${!readOnly ? '<th style="width: 30%">Acción</th>' : ''}
-                </tr>
-            </thead>
-            <tbody>
-        `;
-
-        for (const cat in categorias) {
-            const catData = categorias[cat];
-            const colSpan = readOnly ? 2 : 3;
-
-            html += `
-                <tr class="categoria-row">
-                    <td colspan="${colSpan}">
-                        <span class="material-icons-round" style="font-size:1rem; vertical-align:middle; margin-right:0.5rem; color:${catData.color}">${catData.icon}</span>
-                        ${cat}
-                    </td>
-                </tr>
-            `;
-
-            catData.items.forEach(equipo => {
-                const cant = cantidades[equipo] || 0;
-                const hasItems = cant > 0;
-                const equipoAttr = equipo.replace(/"/g, '&quot;');
-                const equipoJs = equipo.replace(/'/g, "\\'");
-
-                html += `
-                    <tr>
-                        <td style="text-align:left; padding-left:1.5rem">
-                            <span class="equipo-nombre">${equipo}</span>
-                        </td>
-                        <td>
-                            <span class="cantidad-valor ${hasItems ? 'has-items' : ''}" data-equipo="${equipoAttr}">${cant}</span>
-                        </td>
-                `;
-
-                if (!readOnly) {
-                    html += `
-                        <td>
-                            <div class="cantidad-display">
-                                <button class="btn-cantidad btn-minus" data-equipo="${equipoAttr}"
-                                        onclick="NuevoRemito.cambiarCantidad('${equipoJs}', -1)"
-                                        ${cant === 0 ? 'disabled' : ''}>
-                                    −
-                                </button>
-                                <button class="btn-cantidad btn-plus" 
-                                        onclick="NuevoRemito.cambiarCantidad('${equipoJs}', 1)">
-                                    +
-                                </button>
-                            </div>
-                        </td>
-                    `;
-                }
-
-                html += '</tr>';
-            });
-        }
-
-        html += '</tbody></table></div></div>';
-
-        container.innerHTML = html;
+                <div class="eq-move">
+                    <span class="eq-move-title">Mover a:</span>${this.moverHtml(cat)}
+                </div>
+            </div>`;
     },
 
     /**
-     * Actualiza solo el número y el botón de UN equipo puntual,
-     * sin reconstruir el resto de la tabla. Así el scroll (sea de la
-     * página o de un contenedor interno) nunca se mueve.
+     * Devuelve { html, lista }. "lista" es el arreglo de nombres en el orden
+     * dibujado; cada tarjeta guarda su posición en data-i.
      */
-    actualizarFila(equipo, cantidad) {
-        const escaped = CSS.escape(equipo);
+    gridHtml(categorias, cantidades) {
+        const lista = [];
+        let html = '';
+        for (const cat in categorias) {
+            const data = categorias[cat];
+            if (!data.items.length) continue;
+            html += `
+                <section class="eq-section" data-cat="${this.esc(cat)}">
+                    <h3 class="eq-section-title" style="--cat-color:${data.color}">
+                        <span class="material-icons-round">${data.icon}</span>
+                        ${this.esc(data.label || cat)}
+                        <small>${data.items.length}</small>
+                    </h3>
+                    <div class="eq-grid">`;
+            data.items.forEach(nombre => {
+                html += this.tarjetaHtml(nombre, lista.length, cat, cantidades[nombre] || 0);
+                lista.push(nombre);
+            });
+            html += '</div></section>';
+        }
+        return { html, lista };
+    },
 
-        const valorEl = document.querySelector(`.cantidad-valor[data-equipo="${escaped}"]`);
-        if (valorEl) {
-            valorEl.textContent = cantidad;
-            valorEl.classList.toggle('has-items', cantidad > 0);
+    /** Actualiza SOLO los controles de una tarjeta (el scroll no se mueve). */
+    actualizarTarjeta(indice, cant) {
+        const card = document.getElementById('eq-' + indice);
+        if (!card) return;
+        const ctrl = card.querySelector('.eq-ctrl');
+        const teniaInput = !!card.querySelector('.eq-qty');
+        card.classList.toggle('selected', cant > 0);
+
+        if (teniaInput && cant > 0) {
+            const input = card.querySelector('.eq-qty');
+            if (document.activeElement !== input) input.value = cant;
+        } else {
+            ctrl.innerHTML = this.controlesHtml(cant);
+            ctrl.classList.remove('swap');
+            void ctrl.offsetWidth;
+            ctrl.classList.add('swap');
         }
 
-        const minusBtn = document.querySelector(`.btn-minus[data-equipo="${escaped}"]`);
-        if (minusBtn) {
-            minusBtn.disabled = cantidad === 0;
+        const qty = card.querySelector('.eq-qty');
+        if (qty) {
+            qty.classList.remove('bump');
+            void qty.offsetWidth;
+            qty.classList.add('bump');
         }
     }
 };

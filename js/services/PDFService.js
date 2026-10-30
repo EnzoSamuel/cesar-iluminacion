@@ -148,8 +148,10 @@ const PDFService = {
         const filas = [];
         let itemCount = 0;
 
-        for (const categoria in EQUIPOS_DB) {
-            const items = EQUIPOS_DB[categoria].items;
+        const grupos = InventarioService.agrupar(trabajo.equipos);
+
+        for (const categoria in grupos) {
+            const items = grupos[categoria].items;
             let categoriaAgregada = false;
 
             items.forEach(equipo => {

@@ -45,23 +45,11 @@ const DataService = {
     },
 
     /**
-     * Buscar equipos por nombre (sin acentos)
+     * Buscar equipos por nombre y jerga (sin acentos, palabras en cualquier orden)
      */
     buscarEquipos(query) {
-        const q = this.quitarAcentos(query).trim();
-        if (!q) return null;
-
-        const resultados = {};
-        for (const cat in EQUIPOS_DB) {
-            const filtered = EQUIPOS_DB[cat].items.filter(item => {
-                const itemSinAcentos = this.quitarAcentos(item);
-                return itemSinAcentos.includes(q);
-            });
-            if (filtered.length > 0) {
-                resultados[cat] = { ...EQUIPOS_DB[cat], items: filtered };
-            }
-        }
-        return resultados;
+        if (!InventarioService.norm(query)) return null;
+        return InventarioService.buscar(query);
     },
 
     /**
@@ -85,32 +73,14 @@ const DataService = {
      * Contar categorías con equipos seleccionados
      */
     contarCategoriasActivas(cantidades) {
-        const cats = new Set();
-        for (const cat in EQUIPOS_DB) {
-            EQUIPOS_DB[cat].items.forEach(eq => {
-                if (cantidades[eq] > 0) {
-                    cats.add(cat);
-                }
-            });
-        }
-        return cats.size;
+        return Object.keys(InventarioService.agrupar(cantidades)).length;
     },
 
     /**
      * Obtener solo equipos seleccionados agrupados
      */
     getSeleccionadosPorCategoria(cantidades) {
-        const resultado = {};
-        for (const cat in EQUIPOS_DB) {
-            const items = EQUIPOS_DB[cat].items.filter(eq => cantidades[eq] > 0);
-            if (items.length > 0) {
-                resultado[cat] = {
-                    ...EQUIPOS_DB[cat],
-                    items: items
-                };
-            }
-        }
-        return resultado;
+        return InventarioService.agrupar(cantidades);
     },
 
     /**
